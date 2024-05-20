@@ -3,11 +3,11 @@
 using namespace std;
 
 int GetCard(string& CardShape);
-void Render();
+void PlayBlackjack();
 void PrintResult(int Computer, int Player);
-bool CheckOne(int Sum , int Card1 , int Card2);
+bool CheckIsOne(int Sum , int Card1 , int Card2);
 
-bool CheckOne(int Sum, int Card1, int Card2)
+bool CheckIsOne(int Sum, int Card1, int Card2)
 {
 	return Sum < 12 && (Card1 == 1 || Card2 == 1);
 }
@@ -19,8 +19,10 @@ void PrintResult(int Computer, int Player)
 	else cout << "무승부!!" << endl;
 }
 
-void Render()
+void PlayBlackjack()
 {
+	srand(time(NULL));
+
 	string ComputerCard1Shape;
 	string ComputerCard2Shape;
 	int ComputerCard1 = GetCard(ComputerCard1Shape);
@@ -38,8 +40,8 @@ void Render()
 	int SumComputerCard = ComputerCard1 + ComputerCard2;
 	int SumPlayerCard = PlayerCard1 + PlayerCard2;
 
-	if (CheckOne(SumComputerCard , ComputerCard1, ComputerCard2)) SumComputerCard += 10;
-	if (CheckOne(SumPlayerCard, PlayerCard1, PlayerCard2)) SumPlayerCard += 10;
+	if (CheckIsOne(SumComputerCard , ComputerCard1, ComputerCard2)) SumComputerCard += 10;
+	if (CheckIsOne(SumPlayerCard, PlayerCard1, PlayerCard2)) SumPlayerCard += 10;
 
 	cout << "컴퓨터 카드 : " << ComputerCard1Shape << " , " << ComputerCard2Shape << " 합 : " << SumComputerCard << endl;
 	cout << "플레이어 카드 : " << PlayerCard1Shape << " , " << PlayerCard2Shape << " 합 : " << SumPlayerCard << endl;
@@ -51,7 +53,7 @@ void Render()
 
 int GetCard(string& CardShape)
 {
-	int Card = rand() % 13 + 1;
+	int Card = (rand() % 13) + 1;
 
 	switch (Card)
 	{
@@ -81,8 +83,8 @@ int GetCard(string& CardShape)
 
 int main()
 {
-	srand(time(NULL));
-	Render();
+	
+	PlayBlackjack();
 	
 	return 0;
 }
